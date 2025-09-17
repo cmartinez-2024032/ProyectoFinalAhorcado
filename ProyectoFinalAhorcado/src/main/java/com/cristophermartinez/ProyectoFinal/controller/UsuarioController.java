@@ -11,18 +11,17 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuarios")
+@CrossOrigin(origins = "*")
 public class UsuarioController {
 
     @Autowired
     private UsuarioServiceImplements usuarioService;
 
-    // Obtener todos los usuarios
     @GetMapping
     public List<Usuario> getAllUsuarios() {
         return usuarioService.getAllUsuarios();
     }
 
-    // Obtener un usuario por ID
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> getUsuarioById(@PathVariable Integer id) {
         Optional<Usuario> usuario = usuarioService.getUsuarioById(id);
@@ -30,14 +29,26 @@ public class UsuarioController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Registrar un nuevo usuario
     @PostMapping
     public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
         Usuario nuevoUsuario = usuarioService.createUsuario(usuario);
         return ResponseEntity.ok(nuevoUsuario);
     }
 
-    // Eliminar un usuario por ID
+    @PutMapping("/{id}")
+    public ResponseEntity<Usuario> updateUsuario(@PathVariable Integer id, @RequestBody Usuario usuario) {
+        Optional<Usuario> usuarioExistente = usuarioService.getUsuarioById(id);
+        if (usuarioExistente.isPresent()) {
+            Usuario actualizado = usuarioExistente.get();
+            actualizado.setUsername(usuario.getUsername());
+            actualizado.setContraseña(usuario.getContraseña());
+            Usuario usuarioGuardado = usuarioService.createUsuario(actualizado);
+            return ResponseEntity.ok(usuarioGuardado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUsuario(@PathVariable Integer id) {
         boolean eliminado = usuarioService.deleteUsuario(id);

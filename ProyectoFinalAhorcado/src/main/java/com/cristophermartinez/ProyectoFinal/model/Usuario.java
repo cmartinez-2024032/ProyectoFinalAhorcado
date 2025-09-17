@@ -16,7 +16,6 @@ public class Usuario {
     @Column(nullable = false, length = 100)
     private String contraseña;
 
-    // Constructores
     public Usuario() {}
 
     public Usuario(Integer id, String username, String contraseña) {
@@ -25,7 +24,6 @@ public class Usuario {
         this.contraseña = contraseña;
     }
 
-    // Getters y Setters
     public Integer getId() {
         return id;
     }

@@ -11,7 +11,6 @@ public class UsuarioValidacion {
     private UsuarioServiceImplements usuarioService;
 
     public String validarUsuario(Usuario usuario) {
-        // Validar campos obligatorios
         if (usuario.getUsername() == null || usuario.getUsername().trim().isEmpty()) {
             return "El nombre de usuario es obligatorio.";
         }
@@ -20,16 +19,14 @@ public class UsuarioValidacion {
             return "La contraseña es obligatoria.";
         }
 
-        // Validar si el username ya existe
         if (usuarioService.existsByUsername(usuario.getUsername())) {
             return "El nombre de usuario ya está en uso.";
         }
 
-        // Validar longitud mínima de contraseña
         if (usuario.getContraseña().length() < 6) {
             return "La contraseña debe tener al menos 6 caracteres.";
         }
 
-        return null; // No hay errores
+        return null;
     }
 }
