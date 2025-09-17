@@ -2,6 +2,7 @@ package com.cristophermartinez.ProyectoFinal.controller;
 
 import com.cristophermartinez.ProyectoFinal.model.Usuario;
 import com.cristophermartinez.ProyectoFinal.service.UsuarioServiceImplements;
+import com.cristophermartinez.ProyectoFinal.service.Validacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,9 @@ public class UsuarioController {
     @Autowired
     private UsuarioServiceImplements usuarioService;
 
+    @Autowired
+    private Validacion validacion;
+
     @GetMapping
     public List<Usuario> getAllUsuarios() {
         return usuarioService.getAllUsuarios();
@@ -30,15 +34,25 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario) {
+        String error = validacion.validarUsuario(usuario);
+        if (error != null) {
+            return ResponseEntity.badRequest().body(error);
+        }
+
         Usuario nuevoUsuario = usuarioService.createUsuario(usuario);
         return ResponseEntity.ok(nuevoUsuario);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> updateUsuario(@PathVariable Integer id, @RequestBody Usuario usuario) {
+    public ResponseEntity<?> updateUsuario(@PathVariable Integer id, @RequestBody Usuario usuario) {
         Optional<Usuario> usuarioExistente = usuarioService.getUsuarioById(id);
         if (usuarioExistente.isPresent()) {
+            String error = validacion.validarUsuarioActualizado(usuario, id);
+            if (error != null) {
+                return ResponseEntity.badRequest().body(error);
+            }
+
             Usuario actualizado = usuarioExistente.get();
             actualizado.setUsername(usuario.getUsername());
             actualizado.setContraseña(usuario.getContraseña());

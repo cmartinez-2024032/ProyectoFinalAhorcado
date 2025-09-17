@@ -2,7 +2,9 @@ package com.cristophermartinez.ProyectoFinal.controller;
 
 import com.cristophermartinez.ProyectoFinal.model.Palabra;
 import com.cristophermartinez.ProyectoFinal.service.PalabraService;
+import com.cristophermartinez.ProyectoFinal.service.Validacion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +17,9 @@ public class PalabraController {
     @Autowired
     private PalabraService palabraService;
 
+    @Autowired
+    private Validacion validacion;
+
     @GetMapping
     public List<Palabra> obtenerTodas() {
         return palabraService.obtenerTodas();
@@ -26,27 +31,49 @@ public class PalabraController {
     }
 
     @GetMapping("/{id}")
-    public Palabra obtenerPorId(@PathVariable Integer id) {
-        return palabraService.obtenerPorId(id).orElse(null);
+    public ResponseEntity<?> obtenerPorId(@PathVariable Integer id) {
+        return palabraService.obtenerPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Palabra crearPalabra(@RequestBody Palabra palabra) {
-        return palabraService.guardarPalabra(palabra);
+    public ResponseEntity<?> crearPalabra(@RequestBody Palabra palabra) {
+        String error = validacion.validarPalabra(palabra);
+        if (error != null) {
+            return ResponseEntity.badRequest().body(error);
+        }
+
+        Palabra creada = palabraService.guardarPalabra(palabra);
+        return ResponseEntity.ok(creada);
     }
 
     @PutMapping("/{id}")
-    public Palabra actualizarPalabra(@PathVariable Integer id, @RequestBody Palabra palabra) {
-        Palabra actualizada = palabraService.obtenerPorId(id).orElse(null);
-        actualizada.setPalabra(palabra.getPalabra());
-        actualizada.setPista1(palabra.getPista1());
-        actualizada.setPista2(palabra.getPista2());
-        actualizada.setPista3(palabra.getPista3());
-        return palabraService.guardarPalabra(actualizada);
+    public ResponseEntity<?> actualizarPalabra(@PathVariable Integer id, @RequestBody Palabra palabra) {
+        return palabraService.obtenerPorId(id)
+                .map(actual -> {
+                    String error = validacion.validarPalabra(palabra);
+                    if (error != null) {
+                        return ResponseEntity.badRequest().body(error);
+                    }
+
+                    actual.setPalabra(palabra.getPalabra());
+                    actual.setPista1(palabra.getPista1());
+                    actual.setPista2(palabra.getPista2());
+                    actual.setPista3(palabra.getPista3());
+
+                    Palabra actualizada = palabraService.guardarPalabra(actual);
+                    return ResponseEntity.ok(actualizada);
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public void eliminarPalabra(@PathVariable Integer id) {
+    public ResponseEntity<?> eliminarPalabra(@PathVariable Integer id) {
+        if (!palabraService.obtenerPorId(id).isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
         palabraService.eliminarPorId(id);
+        return ResponseEntity.ok().build();
     }
 }
