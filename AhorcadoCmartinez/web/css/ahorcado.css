@@ -1,0 +1,89 @@
+/* --- Estilos generales --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #6a11cb, #2575fc); 
+    color: #fff;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: rgba(0, 0, 0, 0.6); 
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+/* Título */
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Imagen del ahorcado */
+.ahorcado img {
+    width: 500px;
+    height: auto;
+    margin-bottom: 20px;
+    border: 3px solid #fff;
+    border-radius: 10px;
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* Palabra secreta */
+.palabra {
+    font-size: 2em;
+    letter-spacing: 10px;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+/* Pistas */
+.pistas {
+    font-size: 1em;
+    margin-bottom: 20px;
+    line-height: 1.5em;
+}
+
+/* Mensajes de juego */
+.mensaje {
+    font-size: 1.2em;
+    margin: 15px 0;
+    font-weight: bold;
+    color: #ffdd57; 
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* Cronómetro */
+.cronometro {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #ff6b6b; /* Color rojo suave */
+}
+
+/* Botones */
+.controles button {
+    background-color: #2575fc;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    margin: 5px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.controles button:hover {
+    background-color: #6a11cb;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+

@@ -1,0 +1,131 @@
+/* ===== Reset básico ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== Fondo de la página ===== */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+}
+
+/* ===== Navegación ===== */
+nav {
+    width: 100%;
+    padding: 20px 40px;
+    background: rgba(0,0,0,0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+}
+
+nav .titulo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+/* ===== Contenedor del login ===== */
+.login-contendor {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+/* ===== Títulos y subtítulos ===== */
+.login-contendor h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.login-contendor p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.login-contendor .subtitulo {
+    font-size: 0.9rem;
+    color: #e0e0e0;
+}
+
+/* ===== Formulario ===== */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.formulario input {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.formulario input:focus {
+    box-shadow: 0 0 10px rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}
+
+/* ===== Botón ===== */
+.boton-brillante {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.boton-brillante:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* ===== Mensaje de error ===== */
+.login-contendor p[style] {
+    font-weight: 600;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 500px) {
+    .login-contendor {
+        padding: 30px 20px;
+        margin-top: 80px;
+    }
+
+    nav {
+        padding: 15px 20px;
+    }
+
+    nav .titulo {
+        font-size: 1.5rem;
+    }
+}
