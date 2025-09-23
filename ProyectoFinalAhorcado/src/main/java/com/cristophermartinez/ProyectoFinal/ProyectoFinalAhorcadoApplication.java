@@ -16,3 +16,4 @@ public class ProyectoFinalAhorcadoApplication implements CommandLineRunner {
         System.out.println("API funcionando");
     }
 }
+    

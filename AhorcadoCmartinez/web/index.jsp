@@ -33,7 +33,6 @@
         </form>
 
         <% if (request.getAttribute("error") != null) { %>
-            <p style="color:red; margin-top:10px;"><%= request.getAttribute("error") %></p>
         <% } %>
     </div>
 </body>
