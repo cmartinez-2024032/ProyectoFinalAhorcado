@@ -5,17 +5,14 @@ public class Usuario {
     private String username;
     private String contraseña;
 
-    // Constructor vacío
     public Usuario() {}
 
-    // Constructor con todos los campos
     public Usuario(int id, String username, String contraseña) {
         this.id = id;
         this.username = username;
         this.contraseña = contraseña;
     }
 
-    // Getters y Setters
 
     public int getId() {
         return id;

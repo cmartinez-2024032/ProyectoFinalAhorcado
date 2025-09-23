@@ -37,6 +37,16 @@
         console.log("Pistas:", pistaSession1, pistaSession2, pistaSession3);
     </script>
 
+    <!-- Modal de "Perdiste" -->
+<div id="modalPerdiste" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close-btn" id="closeModal">&times;</span>
+    <h2>¡Perdiste!</h2>
+    <img src="img/Perdiste.png" alt="Perdiste" />
+    <p>La palabra era: <span id="palabraPerdida"></span></p>
+  </div>
+</div>
+
     <script src="${pageContext.request.contextPath}/script/juego.js"></script>
 </body>
 </html>

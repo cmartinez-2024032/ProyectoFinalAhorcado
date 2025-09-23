@@ -17,17 +17,14 @@ public class Validar extends HttpServlet {
         String usuario = request.getParameter("txtCorreo");
         String contra = request.getParameter("txtContrasena");
 
-        // Creamos el DAO y verificamos los datos
         UsuarioDAO dao = new UsuarioDAO();
         Usuario u = dao.verificarLogin(usuario, contra);
 
         if (u != null) {
-            // Usuario válido, lo guardamos en sesión
             HttpSession session = request.getSession();
             session.setAttribute("usuario", u);
             request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
         } else {
-            // Usuario inválido
             request.setAttribute("error", "Usuario o contraseña incorrectos");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }

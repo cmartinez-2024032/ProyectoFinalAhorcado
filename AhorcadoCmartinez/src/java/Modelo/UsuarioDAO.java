@@ -15,9 +15,8 @@ public class UsuarioDAO {
         String sql = "SELECT id, username FROM usuarios WHERE username = ? AND contraseña = ?";
 
         try {
-            // Aquí usamos el método correcto que tú tienes definido
             Conexion cn = new Conexion();
-            con = cn.Conexion(); // Este es el método de tu clase
+            con = cn.Conexion(); 
 
             ps = con.prepareStatement(sql);
             ps.setString(1, username);
