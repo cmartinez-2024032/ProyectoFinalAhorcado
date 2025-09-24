@@ -25,6 +25,7 @@ public class Validar extends HttpServlet {
             session.setAttribute("usuario", u);
             request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
         } else {
+            System.out.println("Usuario o Contrsenia incorrectos");
             request.setAttribute("error", "Usuario o contraseña incorrectos");
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
